@@ -23,6 +23,7 @@
 
     let TodoItems = React.createClass({
       render: function() {
+        //  All we did here is instantiate our TodoItems component and pass in our items state property to a prop called entries.
         let todoEntries = this.props.entries;
 
         function createTasks(item) {
@@ -40,14 +41,15 @@
     });
 
     let TodoList = React.createClass({
-
+      //  Initializing our State Object: storing all of the submitted text
       getInitialState: function() {
         return {
+          //  The empty array storing the text
           items: []
         };
       },
-
       addItem: function(e) {
+        //  This will access the items array
         let itemArray = this.state.items;
 
         itemArray.push(
@@ -62,9 +64,11 @@
         });
 
         this._iniputElement.value = "";
-        //  ensures we override the default onSubmit event
+        //  ensures we override the default onSubmit event all we want to do when we submit the form is call the addItem method. If we didn't stop the default behavior, our app will correctly call addItem as desired when we submit the form. It will also trigger our browser's default POST behavior - which we definitely don't want. By stopping the onSubmit event from performing the default behavior, we get our desired behavior of calling the addItem method without any of the unwanted side effects like an unnecessary POST action that might refresh your page.
         e.preventDefault();
       },
+
+      // _inputElement property will store a reference to the generated input element. Now that we have done this, we can treat this element like we would any DOM element we might have found using querySelector or equivalent function in the non-React world.
 
       render: function() {
         return (
